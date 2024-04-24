@@ -1,0 +1,34 @@
+#define speed 3    // Define the pin number for speed
+#define dir1 5     // Define the pin number for dir1
+#define dir2 6     // Define the pin number for dir2
+#define limit 2    // Define the pin number for limit
+#define blowoff 4  // Define the pin number for blowoff
+
+void setup() {
+  pinMode(speed, OUTPUT);
+  pinMode(dir1, OUTPUT);
+  pinMode(dir2, OUTPUT);
+  pinMode(limit, INPUT);
+}
+
+void loop() {
+  while (1) {
+    if (digitalRead(limit) == HIGH) {  // Can is detected
+      // Perform the can crushing operations
+      digitalWrite(dir1, LOW);    // Set dir1 pin low
+      digitalWrite(dir2, HIGH);   // Set dir2 pin high
+      analogWrite(speed, 255);    // Set speed pin to maximum (255)
+      delay(2000);                // Wait for 3 seconds
+      analogWrite(speed, 0);      // Set speed pin to 0 (stop)
+      delay(1000);                // Wait for 1 second
+      digitalWrite(dir1, HIGH);   // Set dir1 pin high
+      digitalWrite(dir2, LOW);    // Set dir2 pin low
+      analogWrite(speed, 255);    // Set speed pin to maximum (255)
+      delay(2000);                // Wait for 3 seconds
+      analogWrite(speed, 0);      // Set speed pin to 0 (stop)
+      delay(250);                 // Wait for 500 milliseconds
+      digitalWrite(dir1, LOW);    // Set dir1 pin low
+      digitalWrite(dir2, LOW);    // Set dir2 pin low
+    }
+  }
+}
